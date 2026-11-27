@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>J-Curve Pilot (InnoPulse AI) — AI &amp; Cryptographic IP Co-Pilot | KLIKSTART 4.0</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            cyberDark: '#0B1120',
+            cyberCard: '#0F172A',
+            brandIndigo: '#4F46E5',
+            brandEmerald: '#10B981',
+            brandAmber: '#F59E0B',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Pola latar belakang Cyber-SaaS pada Hero Section */
+    .bg-cybersaas-hero {
+      background-color: #0B1120;
+      background-image:
+        radial-gradient(circle at 84% 18%, rgba(79, 70, 229, 0.30), transparent 44%),
+        radial-gradient(circle at 14% 82%, rgba(16, 185, 129, 0.18), transparent 45%),
+        radial-gradient(circle at 52% 45%, rgba(99, 102, 241, 0.12), transparent 55%),
+        linear-gradient(to right, rgba(99, 102, 241, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 34px 34px, 34px 34px;
+    }
+
+    /* Animasi aliran sinyal data pada diagram arsitektur SVG */
+    @keyframes dataStream {
+      to {
+        stroke-dashoffset: -24;
+      }
+    }
+    .animate-stream {
+      stroke-dasharray: 6 6;
+      animation: dataStream 0.95s linear infinite;
+    }
+
+    /* Transisi halus elemen SVG */
+    .svg-smooth {
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Custom Range Slider Styling */
+    input[type="range"].pilot-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 8px;
+      border-radius: 999px;
+      background: #E2E8F0;
+      outline: none;
+    }
+    input[type="range"].pilot-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #4F46E5;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.45);
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+    input[type="range"].pilot-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.12);
+      background: #4338CA;
+    }
+    input[type="range"].pilot-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #4F46E5;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.45);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-600 selection:text-white">
+
+  <!-- =====================================================================
+       1. HEADER & NAVIGASI RESPONSIF (STICKY BAR + MOBILE DRAWER)
+  ====================================================================== -->
+  <header class="sticky top-0 z-50 bg-[#0B1120]/95 backdrop-blur-md border-b border-slate-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand Logo & Badge -->
+        <a href="#ringkasan" class="flex items-center gap-3 group min-w-0">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 shrink-0 group-hover:scale-105 transition">
+            <!-- Ikon Perisai Kriptografi & Kurva-J -->
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 4v5c0 4.97-3.05 9.18-7 10.5C8.05 21.18 5 16.97 5 12V7l7-4z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 13c1 1.5 2 2 3.2 1.2C13.5 13.3 14.5 10.5 15.5 8.5" />
+            </svg>
+          </div>
+          <div class="truncate">
+            <div class="font-heading font-extrabold text-sm sm:text-lg tracking-tight leading-none truncate">
+              J-Curve Pilot <span class="text-indigo-400">(InnoPulse AI)</span>
+            </div>
+            <div class="text-[10px] font-mono text-emerald-400 tracking-wider uppercase mt-0.5 truncate">
+              KLIKSTART 4.0 &bull; AI &amp; Cybersecurity
+            </div>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-5 xl:gap-6 text-sm font-medium text-slate-300">
+          <a href="#ringkasan" class="hover:text-indigo-400 transition">Ringkasan &amp; ATM</a>
+          <a href="#mekanisme" class="hover:text-indigo-400 transition">Mekanisme Kerja</a>
+          <a href="#simulator" class="hover:text-emerald-400 transition flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            Simulator J-Curve &amp; IP Vault
+          </a>
+          <a href="#hardware" class="hover:text-indigo-400 transition">Alat &amp; Hardware</a>
+          <a href="#bisnis" class="hover:text-indigo-400 transition">Roadmap &amp; Bisnis</a>
+        </nav>
+
+        <!-- Action CTA & Mobile Hamburger Button -->
+        <div class="flex items-center gap-2.5 shrink-0">
+          <a href="#simulator" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-semibold shadow-sm shadow-indigo-600/30 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            Uji Simulator &amp; Vault
+          </a>
+
+          <button
+            id="mobileMenuBtn"
+            type="button"
+            aria-label="Buka Menu Navigasi"
+            aria-expanded="false"
+            class="lg:hidden p-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
+          >
+            <svg id="iconMenuOpen" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="iconMenuClose" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobileDrawer" class="hidden lg:hidden bg-[#0F172A] border-b border-slate-800 px-4 pt-2 pb-5 space-y-1.5 shadow-2xl">
+      <a href="#ringkasan" class="mobile-nav-link block px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-200 hover:bg-slate-800 hover:text-indigo-400 transition">1. Ringkasan &amp; Kerangka ATM</a>
+      <a href="#mekanisme" class="mobile-nav-link block px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-200 hover:bg-slate-800 hover:text-indigo-400 transition">2. Mekanisme Kerja 5 Tahap</a>
+      <a href="#simulator" class="mobile-nav-link block px-3.5 py-2.5 rounded-xl text-sm font-semibold text-emerald-400 bg-indigo-950/60 border border-indigo-700/50">3. Simulator J-Curve &amp; IP Vault</a>
+      <a href="#hardware" class="mobile-nav-link block px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-200 hover:bg-slate-800 hover:text-indigo-400 transition">4. Alat, Hardware &amp; Tech Stack</a>
+      <a href="#bisnis" class="mobile-nav-link block px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-200 hover:bg-slate-800 hover:text-indigo-400 transition">5. Roadmap, Bisnis &amp; Tim</a>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       2. HERO SECTION & 4 KARTU METRIK UTAMA
+  ====================================================================== -->
+  <section id="ringkasan" class="bg-cybersaas-hero text-white py-14 sm:py-20 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl">
+        <!-- Badge Pilar KLIKSTART 4.0 -->
+        <div class="inline-flex flex-wrap items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/15 border border-indigo-400/30 text-indigo-300 text-xs sm:text-sm font-semibold mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>KLIKSTART 4.0 BTP Telkom University &bull; Pilar Artificial Intelligence &amp; Cybersecurity</span>
+        </div>
+
+        <!-- Judul Utama -->
+        <h1 class="font-heading text-3xl sm:text-5xl lg:text-[52px] font-extrabold tracking-tight leading-[1.13] text-white mb-6">
+          Navigasi Transformasi Digital Tanpa <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-sky-300 to-emerald-400">Jebakan Kurva-J</span> &amp; Kebocoran HKI
+        </h1>
+
+        <!-- Penjelasan Ringkas -->
+        <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-3xl">
+          <strong class="text-white font-semibold">J-Curve Pilot (InnoPulse AI)</strong> adalah platform <em class="text-indigo-300">AI-Powered Innovation &amp; Cryptographic IP Co-Pilot</em> yang membantu <strong class="text-white font-semibold">startup mahasiswa BTP Telkom University</strong> dan <strong class="text-emerald-300 font-semibold">UMKM menengah</strong> menyerap teknologi AI &amp; Cloud secara tepat sasaran—menjaga keseimbangan arus kas R&amp;D, memangkas jeda implementasi SOP, serta mengunci bukti kepemilikan Hak Kekayaan Intelektual (HKI) sebelum produk ditiru kompetitor.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap items-center gap-3.5 mb-12">
+          <a href="#simulator" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 text-white font-bold text-sm sm:text-base shadow-lg shadow-indigo-600/30 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+            </svg>
+            Simulasi Kurva-J &amp; Kunci HKI
+          </a>
+          <a href="#hardware" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-slate-800/85 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm sm:text-base transition">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            Lihat Kebutuhan Alat &amp; Hardware
+          </a>
+        </div>
+      </div>
+
+      <!-- 4 Kartu Metrik Utama -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-14">
+        <!-- Metrik 1 -->
+        <div class="bg-slate-900/85 backdrop-blur-sm border border-slate-800 rounded-2xl p-5 hover:border-indigo-500/50 transition">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-indigo-400 uppercase tracking-wider">R&amp;D Optimization</span>
+            <div class="w-9 h-9 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+          <div class="font-heading text-2xl sm:text-3xl font-extrabold text-white mb-1">35%</div>
+          <h3 class="font-semibold text-sm text-slate-200 mb-1">Efisiensi Biaya Adopsi Tech</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Mencegah pemborosan langganan SaaS/AI yang tidak selaras dengan kapasitas kas usaha.</p>
+        </div>
+
+        <!-- Metrik 2 -->
+        <div class="bg-slate-900/85 backdrop-blur-sm border border-slate-800 rounded-2xl p-5 hover:border-emerald-500/50 transition">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-emerald-400 uppercase tracking-wider">GPT Lag Reduction</span>
+            <div class="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+          </div>
+          <div class="font-heading text-xl sm:text-2xl font-extrabold text-white mb-1">Mingguan vs Tahunan</div>
+          <h3 class="font-semibold text-sm text-slate-200 mb-1">Pangkas Implementation Lag</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Templat SOP &amp; konektor API siap pakai mempercepat integrasi AI ke alur kerja inti.</p>
+        </div>
+
+        <!-- Metrik 3 -->
+        <div class="bg-slate-900/85 backdrop-blur-sm border border-slate-800 rounded-2xl p-5 hover:border-sky-500/50 transition">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-sky-400 uppercase tracking-wider">Cyber &amp; IP Shield</span>
+            <div class="w-9 h-9 rounded-xl bg-sky-500/15 text-sky-400 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+          </div>
+          <div class="font-heading text-xl sm:text-2xl font-extrabold text-white mb-1">SHA-256 + Timestamping</div>
+          <h3 class="font-semibold text-sm text-slate-200 mb-1">Proteksi Aset HKI</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Bukti kriptografi anti-manipulasi atas desain, kode sumber, &amp; formula produk sejak hari pertama.</p>
+        </div>
+
+        <!-- Metrik 4 -->
+        <div class="bg-slate-900/85 backdrop-blur-sm border border-slate-800 rounded-2xl p-5 hover:border-amber-500/50 transition">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-wider">Lean Hardware</span>
+            <div class="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+              </svg>
+            </div>
+          </div>
+          <div class="font-heading text-xl sm:text-2xl font-extrabold text-white mb-1">MVP &lt; Rp 600 Ribu</div>
+          <h3 class="font-semibold text-sm text-slate-200 mb-1">Siap Validasi BTP Tel-U</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">Arsitektur <em>cloud-native</em> ramping, siap diuji langsung pada <em>tenant</em> inkubator &amp; UKM binaan.</p>
+        </div>
+      </div>
+
+      <!-- =================================================================
+           3. KERANGKA ATM (AMATI - TIRU - MODIFIKASI)
+      ================================================================== -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-7 pb-5 border-b border-slate-800">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase tracking-wider text-indigo-400">Landasan Metodologi &amp; Kebaruan</span>
+            <h2 class="font-heading text-xl sm:text-2xl font-extrabold text-white mt-1">
+              Kerangka ATM (Amati &ndash; Tiru &ndash; Modifikasi) Berbasis Bukti Empiris
+            </h2>
+          </div>
+          <span class="font-mono text-xs text-slate-300 bg-slate-800 px-3 py-1.5 rounded-xl border border-slate-700 self-start md:self-auto">
+            Ref: Zhang et al. (2026), Int. Review of Economics &amp; Finance
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- KOLOM 1: AMATI -->
+          <div class="bg-[#0B1120] border border-rose-500/30 rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 rounded-lg bg-rose-500/15 text-rose-400 font-mono text-xs font-extrabold tracking-wider">1. AMATI (MASALAH NYATA)</span>
+                <svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <h3 class="font-heading font-bold text-lg text-white mb-3">4 Akar Kegagalan Transformasi Digital</h3>
+              <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <li class="flex items-start gap-2">
+                  <span class="text-rose-400 font-bold mt-0.5">&bull;</span>
+                  <span><strong>Jebakan Kuantitas Semu (<em>Competency Illusion</em>):</strong> Bisnis berlomba memakai alat AI/SaaS standar demi tren, tetapi kualitas produk inti merosot karena semua pesaing memakai alat generik yang sama.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-rose-400 font-bold mt-0.5">&bull;</span>
+                  <span><strong>Tekanan Ganda Friksi Finansial (<em>Double-Squeeze</em>):</strong> Keterbatasan arus kas memaksa manajemen memangkas riset produk inti jangka panjang demi mengejar penjualan cepat.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-rose-400 font-bold mt-0.5">&bull;</span>
+                  <span><strong>Jeda Implementasi Teknologi (<em>GPT Implementation Lag</em>):</strong> Perangkat AI &amp; <em>cloud</em> gagal mendongkrak kinerja karena SOP dan keterampilan SDM belum ditata ulang.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-rose-400 font-bold mt-0.5">&bull;</span>
+                  <span><strong>Kerentanan HKI &amp; Kota Non-Tier-1:</strong> Pelaku usaha di luar kota metropolitan enggan berinovasi mendalam akibat minimnya fondasi data &amp; risiko penjiplakan ide/desain.</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-5 pt-3 border-t border-slate-800 text-[11px] font-mono text-rose-300">
+              Temuan panel 3.253 perusahaan (2014&ndash;2024)
+            </div>
+          </div>
+
+          <!-- KOLOM 2: TIRU -->
+          <div class="bg-[#0B1120] border border-indigo-500/30 rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 rounded-lg bg-indigo-500/15 text-indigo-300 font-mono text-xs font-extrabold tracking-wider">2. TIRU (FONDASI ILMIAH)</span>
+                <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 class="font-heading font-bold text-lg text-white mb-3">Arsitektur Diagnostik Kurva-J</h3>
+              <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-400 font-bold mt-0.5">&bull;</span>
+                  <span><strong>Pemisahan 2 Jalur Inovasi:</strong> Mengukur terpisah antara <em>Digital Convergence Innovation</em> (aplikasi jangka pendek) vs <em>Pure Digital Innovation</em> (terobosan teknologi inti).</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-400 font-bold mt-0.5">&bull;</span>
+                  <span><strong>3 Kanal Transmisi Utama:</strong> Mengadopsi indeks <strong>Friksi Finansial (SA)</strong>, <strong>Kapasitas Serap Teknologi (<em>Absorptive Capacity</em>)</strong>, dan <strong>Pemberdayaan Faktor Digital</strong> sebagai mesin diagnosis.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-indigo-400 font-bold mt-0.5">&bull;</span>
+                  <span><strong>Pemetaan Titik Balik (<em>Turning Point</em>):</strong> Menggunakan kurva non-linear (puncak kuantitas <span class="font-mono text-indigo-300">DSTOI 8.29</span> &amp; lembah kualitas <span class="font-mono text-emerald-300">DSTOI 10.76</span>) untuk mendeteksi waktu transisi strategis.</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-5 pt-3 border-t border-slate-800 text-[11px] font-mono text-indigo-300">
+              "Quantity leads, quality follows" structural shift
+            </div>
+          </div>
+
+          <!-- KOLOM 3: MODIFIKASI -->
+          <div class="bg-gradient-to-b from-emerald-950/35 to-[#0B1120] border border-emerald-500/40 rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 font-mono text-xs font-extrabold tracking-wider">3. MODIFIKASI (3 PILAR PRODUK)</span>
+                <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 class="font-heading font-bold text-lg text-white mb-3">Platform SaaS AI &amp; Cybersecurity</h3>
+              <ul class="space-y-2.5 text-xs sm:text-sm text-slate-200 leading-relaxed">
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-400 font-bold mt-0.5">1.</span>
+                  <span><strong>AI R&amp;D &amp; Cashflow Reallocator:</strong> Menghitung skor <em>Absorptive Capacity</em> dari arus kas &amp; <em>tech stack</em> usaha, lalu mengunci dana cadangan (<em>strategic buffer</em>) agar riset inti tak tergerus efek <em>double-squeeze</em>.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-400 font-bold mt-0.5">2.</span>
+                  <span><strong>Workflow &amp; GPT Implementation Co-Pilot:</strong> Otomatisasi SOP sektoral dan templat integrasi API siap pakai yang memangkas <em>implementation lag</em> dari hitungan tahun menjadi hitungan minggu.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-400 font-bold mt-0.5">3.</span>
+                  <span><strong>Cryptographic IP Vault &amp; Infringement Scanner:</strong> Brankas kriptografi <em>SHA-256 timestamping</em> untuk mengunci bukti kepemilikan desain/kode sejak fase ide + pemindai kemiripan merek/paten.</span>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-5 pt-3 border-t border-emerald-500/20 text-[11px] font-mono text-emerald-300">
+              Inovasi B2B SaaS siap komersialisasi KLIKSTART 4.0
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       4. MEKANISME KERJA SISTEM 5 TAHAP + DIAGRAM ARSITEKTUR END-TO-END (SVG)
+  ====================================================================== -->
+  <section id="mekanisme" class="py-14 sm:py-20 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-10">
+        <span class="font-mono text-xs font-bold uppercase tracking-wider text-indigo-600">System Architecture &amp; Data Pipeline</span>
+        <h2 class="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mt-1">
+          Mekanisme Kerja Sistem 5 Tahap (End-to-End)
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 mt-2.5 leading-relaxed">
+          Alur pemrosesan cerdas berprinsip <strong class="text-slate-800">Zero-Trust Privacy</strong> yang mengubah data operasional mentah menjadi strategi alokasi R&amp;D, otomasi SOP, dan sertifikat kriptografi HKI.
+        </p>
+      </div>
+
+      <!-- Visual Diagram Alur Arsitektur End-to-End (SVG Responsif) -->
+      <div class="bg-[#0B1120] border border-slate-800 rounded-3xl p-4 sm:p-6 mb-10 shadow-xl">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-pulse"></span>
+            <span class="font-mono text-xs sm:text-sm font-bold text-slate-200 uppercase tracking-wider">End-to-End Zero-Trust AI &amp; IP Pipeline</span>
+          </div>
+          <span class="font-mono text-[11px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full">
+            Client-Side Hashing &bull; Tiny-Diagnostic &amp; LLM Co-Pilot
+          </span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <svg viewBox="0 0 1020 350" class="w-full min-w-[780px] h-auto select-none">
+            <!-- Garis Aliran Utama Kiri -> Tengah -->
+            <line x1="185" y1="175" x2="235" y2="175" stroke="#6366F1" stroke-width="4" class="animate-stream" />
+            <line x1="415" y1="175" x2="465" y2="175" stroke="#10B981" stroke-width="4" class="animate-stream" />
+
+            <!-- Percabangan dari J-Curve Diagnostic Engine ke 3 Modul Eksekusi -->
+            <path d="M645 140 H675 V68 H705" fill="none" stroke="#818CF8" stroke-width="3" class="animate-stream" />
+            <line x1="645" y1="175" x2="705" y2="175" stroke="#38BDF8" stroke-width="3" class="animate-stream" />
+            <path d="M645 210 H675 V282 H705" fill="none" stroke="#10B981" stroke-width="3" class="animate-stream" />
+
+            <!-- Garis dari 3 Modul Eksekusi ke Output Kanan -->
+            <path d="M865 68 H885 V145 H905" fill="none" stroke="#818CF8" stroke-width="2.5" />
+            <line x1="865" y1="175" x2="905" y2="175" stroke="#38BDF8" stroke-width="2.5" />
+            <path d="M865 282 H885 V205 H905" fill="none" stroke="#10B981" stroke-width="2.5" />
+
+            <!-- TAHAP 1: KLIEN (UMKM / STARTUP) -->
+            <g>
+              <rect x="15" y="95" width="170" height="160" rx="16" fill="#0F172A" stroke="#6366F1" stroke-width="2.2" />
+              <rect x="29" y="108" width="76" height="20" rx="6" fill="#4F46E5" />
+              <text x="67" y="121.5" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="800">TAHAP 01</text>
+              <text x="100" y="148" text-anchor="middle" fill="#F8FAFC" font-size="12" font-weight="700">Klien UMKM /</text>
+              <text x="100" y="163" text-anchor="middle" fill="#F8FAFC" font-size="12" font-weight="700">Startup BTP</text>
+              <text x="100" y="187" text-anchor="middle" fill="#A5B4FC" font-size="9.5" font-family="monospace">&bull; Arus Kas &amp; Biaya IT</text>
+              <text x="100" y="202" text-anchor="middle" fill="#A5B4FC" font-size="9.5" font-family="monospace">&bull; Inventaris SaaS/AI</text>
+              <text x="100" y="217" text-anchor="middle" fill="#A5B4FC" font-size="9.5" font-family="monospace">&bull; Draf Desain/Kode/SOP</text>
+              <text x="100" y="239" text-anchor="middle" fill="#94A3B8" font-size="9">Input Operasional &amp; Aset</text>
+            </g>
+
+            <!-- TAHAP 2: LOCAL ZERO-TRUST CONNECTOR -->
+            <g>
+              <rect x="235" y="95" width="180" height="160" rx="16" fill="#0F172A" stroke="#10B981" stroke-width="2.2" />
+              <rect x="249" y="108" width="76" height="20" rx="6" fill="#10B981" />
+              <text x="287" y="121.5" text-anchor="middle" fill="#064E3B" font-size="10" font-weight="800">TAHAP 02</text>
+              <text x="325" y="148" text-anchor="middle" fill="#F8FAFC" font-size="12" font-weight="700">Local Zero-Trust</text>
+              <text x="325" y="163" text-anchor="middle" fill="#F8FAFC" font-size="12" font-weight="700">Connector</text>
+              <text x="325" y="187" text-anchor="middle" fill="#6EE7B7" font-size="9.5" font-family="monospace">&bull; Client-Side SHA-256</text>
+              <text x="325" y="202" text-anchor="middle" fill="#6EE7B7" font-size="9.5" font-family="monospace">&bull; Anonimisasi PII/Kas</text>
+              <text x="325" y="217" text-anchor="middle" fill="#6EE7B7" font-size="9.5" font-family="monospace">&bull; TLS 1.3 / TPM Guard</text>
+              <text x="325" y="239" text-anchor="middle" fill="#94A3B8" font-size="9">File Mentah Tetap di Lokal</text>
+            </g>
+
+            <!-- TAHAP 3: J-CURVE DIAGNOSTIC ENGINE -->
+            <g>
+              <rect x="465" y="85" width="180" height="180" rx="16" fill="#1E1B4B" stroke="#818CF8" stroke-width="2.5" />
+              <rect x="479" y="98" width="76" height="20" rx="6" fill="#6366F1" />
+              <text x="517" y="111.5" text-anchor="middle" fill="#FFFFFF" font-size="10" font-weight="800">TAHAP 03</text>
+              <text x="555" y="138" text-anchor="middle" fill="#F8FAFC" font-size="12" font-weight="800">J-Curve Diagnostic</text>
+              <text x="555" y="153" text-anchor="middle" fill="#F8FAFC" font-size="12" font-weight="800">AI Engine</text>
+              <text x="555" y="177" text-anchor="middle" fill="#C7D2FE" font-size="9.5" font-family="monospace">&bull; Hitung Skor DSTOI</text>
+              <text x="555" y="192" text-anchor="middle" fill="#C7D2FE" font-size="9.5" font-family="monospace">&bull; Indeks Friksi Kas (SA)</text>
+              <text x="555" y="207" text-anchor="middle" fill="#C7D2FE" font-size="9.5" font-family="monospace">&bull; Absorptive Capacity</text>
+              <text x="555" y="222" text-anchor="middle" fill="#FCD34D" font-size="9.5" font-family="monospace">&bull; Deteksi Turning Point</text>
+              <text x="555" y="246" text-anchor="middle" fill="#A5B4FC" font-size="9">Pemetaan Posisi Kurva-J</text>
+            </g>
+
+            <!-- TAHAP 4: 3 MODUL EKSEKUSI -->
+            <!-- Modul 4A -->
+            <g>
+              <rect x="705" y="24" width="160" height="86" rx="12" fill="#0F172A" stroke="#818CF8" stroke-width="2" />
+              <text x="785" y="45" text-anchor="middle" fill="#A5B4FC" font-size="9" font-family="monospace" font-weight="700">MODUL 4A &bull; FINANSIAL</text>
+              <text x="785" y="63" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">Cashflow &amp; R&amp;D</text>
+              <text x="785" y="77" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">Reallocator</text>
+              <text x="785" y="96" text-anchor="middle" fill="#94A3B8" font-size="8.5">Kunci Strategic Buffer Inti</text>
+            </g>
+
+            <!-- Modul 4B -->
+            <g>
+              <rect x="705" y="132" width="160" height="86" rx="12" fill="#0F172A" stroke="#38BDF8" stroke-width="2" />
+              <text x="785" y="153" text-anchor="middle" fill="#7DD3FC" font-size="9" font-family="monospace" font-weight="700">MODUL 4B &bull; OPERASI</text>
+              <text x="785" y="171" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">SOP &amp; GPT API</text>
+              <text x="785" y="185" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">Co-Pilot</text>
+              <text x="785" y="204" text-anchor="middle" fill="#94A3B8" font-size="8.5">Pangkas Implementation Lag</text>
+            </g>
+
+            <!-- Modul 4C -->
+            <g>
+              <rect x="705" y="240" width="160" height="86" rx="12" fill="#0F172A" stroke="#10B981" stroke-width="2" />
+              <text x="785" y="261" text-anchor="middle" fill="#6EE7B7" font-size="9" font-family="monospace" font-weight="700">MODUL 4C &bull; CYBER-IP</text>
+              <text x="785" y="279" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">Cryptographic</text>
+              <text x="785" y="293" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="700">IP Vault</text>
+              <text x="785" y="312" text-anchor="middle" fill="#94A3B8" font-size="8.5">SHA-256 + Patent Scan</text>
+            </g>
+
+            <!-- TAHAP 5: OUTPUT KEPUTUSAN & SERTIFIKAT HKI -->
+            <g>
+              <rect x="905" y="95" width="102" height="160" rx="14" fill="#064E3B" stroke="#10B981" stroke-width="2.2" />
+              <text x="956" y="122" text-anchor="middle" fill="#6EE7B7" font-size="9.5" font-family="monospace" font-weight="800">TAHAP 05</text>
+              <text x="956" y="144" text-anchor="middle" fill="#FFFFFF" font-size="11" font-weight="800">OUTPUT</text>
+              <text x="956" y="168" text-anchor="middle" fill="#D1FAE5" font-size="9">&bull; Porsi Budget</text>
+              <text x="956" y="185" text-anchor="middle" fill="#D1FAE5" font-size="9">&bull; Playbook SOP</text>
+              <text x="956" y="202" text-anchor="middle" fill="#FDE68A" font-size="9" font-weight="700">&bull; Sertifikat HKI</text>
+              <text x="956" y="219" text-anchor="middle" fill="#D1FAE5" font-size="9">&bull; Skor Kredit</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Penjelasan Langkah demi Langkah (Step 1 hingga Step 5) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <!-- Step 1 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:border-indigo-400 transition">
+          <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white font-heading font-extrabold text-sm flex items-center justify-center mb-3">01</div>
+          <h3 class="font-heading font-bold text-base text-slate-900 mb-2">Onboarding &amp; Telemetry</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Pengguna memasukkan ringkasan arus kas bulanan, biaya langganan perangkat lunak/AI saat ini, jumlah SDM teknis, serta mengunggah draf desain, kode, atau formula produk.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:border-emerald-400 transition">
+          <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white font-heading font-extrabold text-sm flex items-center justify-center mb-3">02</div>
+          <h3 class="font-heading font-bold text-base text-slate-900 mb-2">Zero-Trust Local Hashing</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Sebelum data keluar dari browser/perangkat klien, modul keamanan lokal melakukan <em>hashing</em> <strong>SHA-256</strong> pada dokumen rahasia dan menyamarkan identitas sensitif sehingga rahasia dagang tetap aman di perangkat pemilik.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:border-indigo-400 transition">
+          <div class="w-9 h-9 rounded-xl bg-indigo-700 text-white font-heading font-extrabold text-sm flex items-center justify-center mb-3">03</div>
+          <h3 class="font-heading font-bold text-base text-slate-900 mb-2">J-Curve Diagnostic Engine</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Mesin AI menghitung posisi usaha pada kurva kuantitas vs kualitas berdasarkan tingkat adopsi digital (<em>DSTOI</em>), tekanan kas (<em>SA</em>), dan kapasitas serap SDM (<em>Absorptive Capacity</em>) untuk mendeteksi risiko jebakan <em>Competency Illusion</em>.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:border-sky-400 transition">
+          <div class="w-9 h-9 rounded-xl bg-sky-600 text-white font-heading font-extrabold text-sm flex items-center justify-center mb-3">04</div>
+          <h3 class="font-heading font-bold text-base text-slate-900 mb-2">3-Module AI Execution</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Sistem mengeksekusi tiga aksi paralel: membagi anggaran <em>Quick-Win</em> vs <em>Strategic Buffer</em>, menyusun templat SOP otomasi AI siap pakai, serta menanam stempel waktu kriptografi pada sidik jari digital HKI.
+          </p>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:border-amber-400 transition">
+          <div class="w-9 h-9 rounded-xl bg-amber-500 text-white font-heading font-extrabold text-sm flex items-center justify-center mb-3">05</div>
+          <h3 class="font-heading font-bold text-base text-slate-900 mb-2">Actionable Output &amp; Proof</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Klien menerima dasbor keputusan mingguan, sertifikat bukti kepemilikan HKI berbasis SHA-256 untuk pendaftaran DJKI, serta <em>Innovation Readiness Score</em> sebagai lampiran pengajuan pendanaan investor/bank.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       5. SIMULATOR INTERAKTIF J-CURVE DIAGNOSTIC & CRYPTOGRAPHIC IP VAULT
+  ====================================================================== -->
+  <section id="simulator" class="py-14 sm:py-20 bg-slate-100/90 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+
+      <!-- =================================================================
+           BAGIAN A: SIMULATOR KURVA-J INTERAKTIF
+      ================================================================== -->
+      <div>
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-8">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase tracking-wider text-indigo-600">Interactive Econometric &amp; AI Twin</span>
+            <h2 class="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mt-1">
+              Bagian A: Simulator Interaktif Kurva-J Inovasi Digital
+            </h2>
+            <p class="text-sm sm:text-base text-slate-600 mt-2 max-w-2xl">
+              Geser parameter di bawah untuk mengamati bagaimana keterbukaan adopsi teknologi (<strong>DSTOI</strong>), tekanan kas, kapasitas serap SDM, dan proteksi HKI membentuk kurva <strong>Kuantitas (Terbalik-U)</strong> dan <strong>Kualitas (Kurva-U)</strong>.
+            </p>
+          </div>
+
+          <!-- Preset Skenario Cepat -->
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xs font-semibold text-slate-500 mr-1">Skenario Uji:</span>
+            <button type="button" onclick="applyJCurvePreset('illusion')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 border border-slate-200 hover:border-indigo-300 shadow-sm transition">
+              Jebakan Competency Illusion
+            </button>
+            <button type="button" onclick="applyJCurvePreset('squeeze')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-rose-50 text-slate-700 hover:text-rose-700 border border-slate-200 hover:border-rose-300 shadow-sm transition">
+              Bahaya Double-Squeeze
+            </button>
+            <button type="button" onclick="applyJCurvePreset('rebound')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 border border-slate-200 hover:border-emerald-300 shadow-sm transition">
+              Breakthrough Rebound
+            </button>
+          </div>
+        </div>
+
+        <!-- Grid Simulator: Input Kiri (5 Kolom) + Grafik & Hasil Kanan (7 Kolom) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- PANEL INPUT KONTROL (5 Kolom) -->
+          <div class="lg:col-span-5 bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-sm space-y-5">
+            <!-- Slider 1: Intensitas Adopsi Teknologi / DSTOI -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="dstoiSlider" class="text-sm font-semibold text-slate-800">Intensitas Adopsi Tech (DSTOI)</label>
+                <span id="dstoiBadge" class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-700">8.5 / 18.0</span>
+              </div>
+              <input id="dstoiSlider" type="range" min="0" max="18" step="0.5" value="8.5" class="w-full pilot-slider" />
+              <div class="flex justify-between text-[11px] font-mono text-slate-400 mt-1">
+                <span>0 (Manual)</span>
+                <span>8.3 (Puncak Q)</span>
+                <span>10.8 (Lembah K)</span>
+                <span>18 (Tinggi)</span>
+              </div>
+            </div>
+
+            <!-- Slider 2: Tekanan Friksi Finansial -->
+            <div class="pt-2 border-t border-slate-100">
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="frictionSlider" class="text-sm font-semibold text-slate-800">Tekanan Friksi Finansial (Kas)</label>
+                <span id="frictionBadge" class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-rose-50 text-rose-700">55% (Sedang)</span>
+              </div>
+              <input id="frictionSlider" type="range" min="10" max="100" step="5" value="55" class="w-full pilot-slider" />
+              <div class="flex justify-between text-[11px] font-mono text-slate-400 mt-1">
+                <span>10% (Kas Longgar)</span>
+                <span>50%</span>
+                <span>100% (Krisis Kas)</span>
+              </div>
+            </div>
+
+            <!-- Slider 3: Kapasitas Serap Teknologi (Absorptive Capacity) -->
+            <div class="pt-2 border-t border-slate-100">
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="abscapSlider" class="text-sm font-semibold text-slate-800">Kapasitas Serap Tech (Absorptive)</label>
+                <span id="abscapBadge" class="font-mono text-xs font-bold px-2.5 py-1 rounded-lg bg-sky-50 text-sky-700">60% (Adaptif)</span>
+              </div>
+              <input id="abscapSlider" type="range" min="10" max="100" step="5" value="60" class="w-full pilot-slider" />
+              <div class="flex justify-between text-[11px] font-mono text-slate-400 mt-1">
+                <span>10% (Gagap Tech)</span>
+                <span>50%</span>
+                <span>100% (R&amp;D Matang)</span>
+              </div>
+            </div>
+
+            <!-- Toggle 4: Proteksi HKI (IP Vault) -->
+            <div class="pt-2 border-t border-slate-100">
+              <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                Status Perlindungan HKI (IP Vault)
+              </label>
+              <div class="grid grid-cols-2 gap-2 p-1.5 rounded-2xl bg-slate-100 border border-slate-200">
+                <button
+                  id="btnIpActive"
+                  type="button"
+                  onclick="setIpProtection(true)"
+                  class="py-2 px-3 rounded-xl text-xs font-extrabold bg-emerald-600 text-white shadow-sm transition text-center"
+                >
+                  IP Vault Aktif &check;
+                  <span class="block font-normal text-[10px] text-emerald-100 mt-0.5">SHA-256 + Timestamp</span>
+                </button>
+                <button
+                  id="btnIpInactive"
+                  type="button"
+                  onclick="setIpProtection(false)"
+                  class="py-2 px-3 rounded-xl text-xs font-bold bg-transparent text-slate-600 hover:text-slate-900 transition text-center"
+                >
+                  Non-Aktif
+                  <span class="block font-normal text-[10px] text-slate-500 mt-0.5">Rentan Penjiplakan</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Box Diagnosis Strategis AI -->
+            <div id="jcurveDiagnosisBox" class="p-4 rounded-2xl bg-indigo-50 border border-indigo-200 text-xs text-indigo-950 leading-relaxed">
+              <strong>Diagnosis AI Co-Pilot:</strong> Usaha berada di sekitar puncak adopsi alat standar (<em>Competency Illusion</em>). Segera kunci dana cadangan riset inti agar kualitas produk melenting naik melewati lembah Kurva-J.
+            </div>
+          </div>
+
+          <!-- GRAFIK SVG DINAMIS & METRIK REAL-TIME (7 Kolom) -->
+          <div class="lg:col-span-7 space-y-5">
+            
+            <!-- Grafik Kurva-J SVG -->
+            <div class="bg-[#0B1120] border border-slate-800 rounded-3xl p-4 sm:p-6 shadow-lg text-white">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <div>
+                  <h3 class="font-heading font-bold text-sm sm:text-base text-white">Kurva Asimetris: Kuantitas (Terbalik-U) vs Kualitas (Kurva-U)</h3>
+                  <p class="text-[11px] text-slate-400">Adaptasi model non-linear Zhang et al. (2026) — bergeser dinamis sesuai friksi kas &amp; kapasitas serap</p>
+                </div>
+                <span id="zoneStatusBadge" class="font-mono text-xs font-extrabold px-3 py-1.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                  ZONA COMPETENCY ILLUSION
+                </span>
+              </div>
+
+              <!-- Legenda Kurva -->
+              <div class="flex flex-wrap items-center gap-4 text-xs mb-3">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-3 h-3 rounded-full bg-indigo-400 inline-block"></span>
+                  <span class="text-slate-300">Kuantitas Inovasi (<em class="text-indigo-300">Digital Convergence</em>)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-3 h-3 rounded-full bg-emerald-400 inline-block"></span>
+                  <span class="text-slate-300">Kualitas Terobosan Inti (<em class="text-emerald-300">Pure Digital</em>)</span>
+                </div>
+              </div>
+
+              <div class="overflow-x-auto">
+                <svg id="jcurveSvg" viewBox="0 0 680 270" class="w-full min-w-[520px] h-auto select-none">
+                  <!-- Grid Horizontal -->
+                  <line x1="55" y1="30" x2="645" y2="30" stroke="#1E293B" stroke-width="1" />
+                  <line x1="55" y1="80" x2="645" y2="80" stroke="#1E293B" stroke-width="1" />
+                  <line x1="55" y1="130" x2="645" y2="130" stroke="#1E293B" stroke-width="1" />
+                  <line x1="55" y1="180" x2="645" y2="180" stroke="#1E293B" stroke-width="1" />
+                  <line x1="55" y1="230" x2="645" y2="230" stroke="#334155" stroke-width="1.5" />
+
+                  <!-- Sumbu Y -->
+                  <line x1="55" y1="25" x2="55" y2="230" stroke="#334155" stroke-width="1.5" />
+                  <text x="45" y="34" text-anchor="end" fill="#64748B" font-size="9.5" font-family="monospace">100</text>
+                  <text x="45" y="84" text-anchor="end" fill="#64748B" font-size="9.5" font-family="monospace">75</text>
+                  <text x="45" y="134" text-anchor="end" fill="#64748B" font-size="9.5" font-family="monospace">50</text>
+                  <text x="45" y="184" text-anchor="end" fill="#64748B" font-size="9.5" font-family="monospace">25</text>
+                  <text x="45" y="233" text-anchor="end" fill="#64748B" font-size="9.5" font-family="monospace">0</text>
+
+                  <!-- Label Sumbu X (DSTOI 0 - 18) -->
+                  <text x="55" y="248" text-anchor="middle" fill="#64748B" font-size="9.5" font-family="monospace">0</text>
+                  <text x="219" y="248" text-anchor="middle" fill="#64748B" font-size="9.5" font-family="monospace">5</text>
+                  <text x="327" y="248" text-anchor="middle" fill="#818CF8" font-size="9" font-family="monospace" font-weight="700">8.3 (Peak Q)</text>
+                  <text x="409" y="248" text-anchor="middle" fill="#34D399" font-size="9" font-family="monospace" font-weight="700">10.8 (Trough K)</text>
+                  <text x="546" y="248" text-anchor="middle" fill="#64748B" font-size="9.5" font-family="monospace">15</text>
+                  <text x="645" y="248" text-anchor="middle" fill="#64748B" font-size="9.5" font-family="monospace">18</text>
+                  <text x="350" y="264" text-anchor="middle" fill="#94A3B8" font-size="10" font-weight="600">Indeks Keterbukaan &amp; Adopsi Layanan Digital (DSTOI)</text>
+
+                  <!-- Garis Vertikal Penanda Turning Point Referensi -->
+                  <line x1="327" y1="28" x2="327" y2="230" stroke="#4F46E5" stroke-width="1" stroke-dasharray="3 3" opacity="0.5" />
+                  <line x1="409" y1="28" x2="409" y2="230" stroke="#10B981" stroke-width="1" stroke-dasharray="3 3" opacity="0.5" />
+
+                  <!-- Kurva Dinamis 1: Kuantitas Inovasi (Inverted-U, Indigo) -->
+                  <path id="curveQuantityPath" d="" fill="none" stroke="#818CF8" stroke-width="3.5" stroke-linecap="round" />
+
+                  <!-- Kurva Dinamis 2: Kualitas Terobosan Inti (U-Shape, Emerald) -->
+                  <path id="curveQualityPath" d="" fill="none" stroke="#10B981" stroke-width="3.5" stroke-linecap="round" />
+
+                  <!-- Garis Vertikal Posisi User Saat Ini -->
+                  <line id="userPosLine" x1="333" y1="25" x2="333" y2="230" stroke="#F59E0B" stroke-width="2" stroke-dasharray="5 3" class="svg-smooth" />
+
+                  <!-- Titik Marker Posisi User pada Kurva Kuantitas -->
+                  <circle id="markerQuantity" cx="333" cy="60" r="7" fill="#6366F1" stroke="#FFFFFF" stroke-width="2.5" class="svg-smooth" />
+
+                  <!-- Titik Marker Posisi User pada Kurva Kualitas -->
+                  <circle id="markerQuality" cx="333" cy="145" r="7" fill="#10B981" stroke="#FFFFFF" stroke-width="2.5" class="svg-smooth" />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Bar Alokasi Anggaran R&D Rekomendasi AI -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-600">Rekomendasi Alokasi Anggaran R&amp;D &amp; Tech AI</span>
+                <span id="budgetSplitText" class="font-mono text-xs font-extrabold text-indigo-700">45% Quick-Win Convergence &bull; 55% Strategic Buffer Core</span>
+              </div>
+              <div class="w-full h-3.5 rounded-full bg-slate-100 overflow-hidden flex">
+                <div id="barQuickWin" style="width: 45%" class="bg-indigo-500 h-full transition-all duration-300"></div>
+                <div id="barCoreBuffer" style="width: 55%" class="bg-emerald-500 h-full transition-all duration-300"></div>
+              </div>
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1.5">
+                <span>Jalur Cepat: Otomasi SaaS, Marketing &amp; API</span>
+                <span>Dana Terkunci: Riset Produk Inti &amp; Paten</span>
+              </div>
+            </div>
+
+            <!-- Grid 4 Kartu Output Metrik -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+                <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Skor Kuantitas</div>
+                <div id="outQuantScore" class="font-mono text-xl font-extrabold text-indigo-600">82 / 100</div>
+                <div class="text-[11px] text-slate-500 mt-0.5">Output aplikasi cepat</div>
+              </div>
+
+              <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+                <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Skor Kualitas Inti</div>
+                <div id="outQualScore" class="font-mono text-xl font-extrabold text-emerald-600">48 / 100</div>
+                <div class="text-[11px] text-slate-500 mt-0.5">Daya saing orisinal</div>
+              </div>
+
+              <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+                <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Implementation Lag</div>
+                <div id="outLagTime" class="font-mono text-lg sm:text-xl font-extrabold text-slate-900">5 Minggu</div>
+                <div id="outLagSub" class="text-[11px] text-emerald-700 font-medium mt-0.5">Turun dari 14 Bulan</div>
+              </div>
+
+              <div class="bg-gradient-to-br from-indigo-600 to-emerald-600 text-white rounded-2xl p-4 shadow-sm">
+                <div class="text-[11px] font-semibold text-indigo-100 uppercase tracking-wider mb-1">Skor Layak Danai &amp; HKI</div>
+                <div id="outReadinessScore" class="font-mono text-xl font-extrabold text-white">79 / 100</div>
+                <div id="outReadinessSub" class="text-[11px] text-indigo-100 mt-0.5">Siap Pitching / Kredit</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- =================================================================
+           BAGIAN B: MINI DEMO INTERAKTIF 'CRYPTOGRAPHIC IP VAULT'
+      ================================================================== -->
+      <div class="bg-[#0B1120] border border-slate-800 rounded-3xl p-6 sm:p-8 text-white shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-6 pb-5 border-b border-slate-800">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-bold mb-2">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              REAL BROWSER WEB CRYPTO API (SHA-256)
+            </div>
+            <h2 class="font-heading text-xl sm:text-2xl lg:text-3xl font-extrabold text-white">
+              Bagian B: Demo Interaktif Cryptographic IP Vault
+            </h2>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1.5 max-w-2xl">
+              Uji langsung mekanisme penguncian aset HKI. Teks ide atau deskripsi inovasi Anda diubah menjadi sidik jari kriptografi <strong>SHA-256</strong> secara lokal di browser tanpa mengirim isi rahasia ke server luar.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <!-- Form Input Aset Rahasia (5 Kolom) -->
+          <div class="lg:col-span-5 bg-slate-900/90 border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-4">
+            <div>
+              <label for="ipOwnerInput" class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                Nama Pemilik / Tim Startup / UMKM
+              </label>
+              <input
+                id="ipOwnerInput"
+                type="text"
+                value="Tim InnoPulse — BTP Telkom University"
+                placeholder="Contoh: PT Karya Tekstil Nusantara"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition"
+              />
+            </div>
+
+            <div>
+              <label for="ipCategorySelect" class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                Kategori Aset Kekayaan Intelektual
+              </label>
+              <select
+                id="ipCategorySelect"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700 text-sm text-white focus:outline-none focus:border-indigo-500 transition"
+              >
+                <option value="Algoritma & Model AI">Algoritma &amp; Model AI</option>
+                <option value="Arsitektur Perangkat Lunak & Kode">Arsitektur Perangkat Lunak &amp; Kode Sumber</option>
+                <option value="Formula Produk & Proses Manufaktur">Formula Produk &amp; Proses Manufaktur</option>
+                <option value="Desain Industri & Antarmuka UI/UX">Desain Industri &amp; Antarmuka UI/UX</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="ipSecretInput" class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                Judul Ide / Abstrak Dokumen Rahasia
+              </label>
+              <textarea
+                id="ipSecretInput"
+                rows="3"
+                placeholder="Ketik judul produk, formula rahasia, atau arsitektur algoritma Anda di sini..."
+                class="w-full px-3.5 py-2.5 rounded-xl bg-[#0B1120] border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition"
+              >Arsitektur Hybrid Diagnostic Engine untuk Deteksi Titik Balik Kurva-J Inovasi UMKM &amp; Enkripsi Aset HKI Berbasis Zero-Trust SHA-256.</textarea>
+            </div>
+
+            <button
+              id="btnGenerateIpHash"
+              type="button"
+              onclick="generateCryptographicIpProof()"
+              class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2 transition"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              Kunci &amp; Generate Bukti Kriptografi
+            </button>
+          </div>
+
+          <!-- Kartu Sertifikat Bukti Kepemilikan Digital (7 Kolom) -->
+          <div class="lg:col-span-7 bg-gradient-to-br from-slate-900 via-[#0F172A] to-indigo-950/60 border border-indigo-500/40 rounded-2xl p-5 sm:p-6 relative overflow-hidden">
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-slate-800">
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-heading font-extrabold text-sm sm:text-base text-white">SERTIFIKAT BUKTI KEPEMILIKAN DIGITAL (IP VAULT)</div>
+                  <div id="certSerialNumber" class="font-mono text-[11px] text-indigo-300">CERT-ID: JCP-2026-8841-VERIFIED</div>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-[11px] font-bold border border-emerald-500/30">
+                IMMUTABLE PROOF
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs mb-4">
+              <div class="bg-[#0B1120]/90 p-3 rounded-xl border border-slate-800">
+                <span class="text-slate-400 block mb-0.5">Pemilik Terdaftar:</span>
+                <strong id="certOwnerText" class="text-white font-semibold">Tim InnoPulse — BTP Telkom University</strong>
+              </div>
+              <div class="bg-[#0B1120]/90 p-3 rounded-xl border border-slate-800">
+                <span class="text-slate-400 block mb-0.5">Kategori &amp; Stempel Waktu (ISO-8601):</span>
+                <strong id="certMetaText" class="text-emerald-300 font-mono text-[11px]">Algoritma &amp; Model AI &bull; 2026-11-27T07:47:00.000Z</strong>
+              </div>
+            </div>
+
+            <!-- Hash SHA-256 Box -->
+            <div class="bg-[#0B1120] border border-slate-800 rounded-xl p-3.5 mb-4">
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <span class="font-mono text-[11px] font-bold text-indigo-400 uppercase tracking-wider">SHA-256 Cryptographic Fingerprint (64-Hex)</span>
+                <button
+                  type="button"
+                  onclick="copyHashToClipboard()"
+                  class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono text-[11px] transition flex items-center gap-1"
+                >
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  <span id="copyBtnLabel">Salin Hash</span>
+                </button>
+              </div>
+              <div id="certHashOutput" class="font-mono text-xs text-emerald-400 break-all leading-relaxed select-all">
+                Menghitung sidik jari SHA-256...
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400">
+              <span>Status Enkripsi: <strong class="text-slate-200">Zero-Knowledge Local Digest (Isi Dokumen Tidak Diunggah)</strong></span>
+              <span class="font-mono text-indigo-300">Siap Lampiran DJKI / NDA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       6. KEBUTUHAN ALAT, HARDWARE & TECH STACK SOFTWARE (2 TAB + TABEL)
+  ====================================================================== -->
+  <section id="hardware" class="py-14 sm:py-20 bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mb-6">
+        <span class="font-mono text-xs font-bold uppercase tracking-wider text-indigo-600">Lean Infrastructure &amp; Security Hardware</span>
+        <h2 class="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mt-1">
+          Kebutuhan Alat, Hardware &amp; Tech Stack Software
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 mt-2.5 leading-relaxed">
+          Sebagai solusi berbasis <strong>Software AI &amp; Cybersecurity</strong>, kebutuhan fisik J-Curve Pilot sangat ramping sehingga mudah dibangun dalam waktu singkat, namun tetap didukung perangkat keras keamanan kriptografi dan pemrosesan lokal (*edge*) untuk menjaga kerahasiaan data klien.
+        </p>
+      </div>
+
+      <!-- Tab Pemisah Skala -->
+      <div class="flex flex-wrap gap-2 p-1.5 bg-slate-100 border border-slate-200 rounded-2xl mb-8">
+        <button
+          id="tabBtnMvp"
+          type="button"
+          onclick="switchInfraTab('mvp')"
+          class="flex-1 sm:flex-none px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold bg-indigo-600 text-white shadow-sm transition text-left sm:text-center"
+        >
+          Tab 1: Prototipe MVP Kampus (Estimasi &lt; Rp 600.000)
+        </button>
+        <button
+          id="tabBtnCommercial"
+          type="button"
+          onclick="switchInfraTab('commercial')"
+          class="flex-1 sm:flex-none px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition text-left sm:text-center"
+        >
+          Tab 2: Skala Komersial Nasional &amp; Internasional
+        </button>
+      </div>
+
+      <!-- TAB 1 CONTENT: PROTOTIPE MVP KAMPUS -->
+      <div id="panelMvp" class="space-y-6 mb-12">
+        <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="font-heading font-bold text-base text-indigo-950">Infrastruktur Ramping Siap Demo KLIKSTART 4.0</h3>
+            <p class="text-xs sm:text-sm text-indigo-900 mt-0.5">Memanfaatkan perangkat yang sudah dimiliki anggota tim + 1 kunci keamanan fisik FIDO2 untuk demonstrasi otentikasi HKI tingkat tinggi.</p>
+          </div>
+          <span class="font-mono text-xs sm:text-sm font-extrabold px-4 py-2 rounded-xl bg-white text-indigo-700 border border-indigo-300 shrink-0">
+            Belanja Baru: &lt; Rp 600.000
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Hardware MVP -->
+          <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6">
+            <span class="px-3 py-1 rounded-lg bg-indigo-100 text-indigo-800 font-mono text-xs font-extrabold">PERANGKAT KERAS (HARDWARE MVP)</span>
+            <h3 class="font-heading font-bold text-lg text-slate-900 mt-3 mb-3">3 Perangkat Fisik Pendukung</h3>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-600">
+              <li class="bg-white p-3.5 rounded-2xl border border-slate-200/80">
+                <div class="font-bold text-slate-900 flex items-center justify-between">
+                  <span>1. Laptop Dev &amp; Demo Pitching (16GB RAM)</span>
+                  <span class="font-mono text-xs text-slate-500">Aset Tim (Rp 0)</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">Berfungsi menjalankan server lokal <em>FastAPI</em>, basis data vektor <em>ChromaDB</em>, dan antarmuka dasbor saat presentasi di hadapan juri.</p>
+              </li>
+              <li class="bg-white p-3.5 rounded-2xl border border-slate-200/80">
+                <div class="font-bold text-slate-900 flex items-center justify-between">
+                  <span>2. Hardware Security Key (FIDO2 / YubiKey)</span>
+                  <span class="font-mono text-xs text-indigo-700">~Rp 450.000</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">Kunci kriptografi USB/NFC untuk otentikasi dua faktor (2FA) tanpa kata sandi saat membuka brankas HKI (<em>Cryptographic IP Vault</em>).</p>
+              </li>
+              <li class="bg-white p-3.5 rounded-2xl border border-slate-200/80">
+                <div class="font-bold text-slate-900 flex items-center justify-between">
+                  <span>3. Smartphone Penguji Mobile + Kuota Uji</span>
+                  <span class="font-mono text-xs text-emerald-700">~Rp 100.000</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">Pengujian responsivitas tampilan mobile bagi pelaku UMKM serta simulasi otorisasi NFC pada <em>IP Vault</em>.</p>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Software Stack MVP -->
+          <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6">
+            <span class="px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-mono text-xs font-extrabold">TECH STACK SOFTWARE &amp; AI</span>
+            <h3 class="font-heading font-bold text-lg text-slate-900 mt-3 mb-3">Arsitektur Cloud &amp; Kriptografi Modern</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80">
+                <strong class="text-slate-900 block mb-1">Frontend Web App</strong>
+                <span class="text-slate-500"><strong>React / HTML5 + Tailwind CSS</strong> untuk dasbor interaktif Kurva-J yang responsif di desktop &amp; ponsel.</span>
+              </div>
+              <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80">
+                <strong class="text-slate-900 block mb-1">Backend &amp; Diagnostic Engine</strong>
+                <span class="text-slate-500"><strong>Python FastAPI</strong> menjalankan model perhitungan titik balik kurva non-linear &amp; rasio alokasi kas R&amp;D.</span>
+              </div>
+              <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80">
+                <strong class="text-slate-900 block mb-1">AI Co-Pilot &amp; RAG</strong>
+                <span class="text-slate-500"><strong>Gemini / LLM API + LangChain + ChromaDB Vector Store</strong> untuk menyusun templat SOP sektoral &amp; cek kemiripan ide.</span>
+              </div>
+              <div class="bg-white p-3.5 rounded-2xl border border-slate-200/80">
+                <strong class="text-slate-900 block mb-1">Cryptographic IP Vault</strong>
+                <span class="text-slate-500"><strong>Web Crypto API (SHA-256) + OpenTimestamps / Polygon Testnet</strong> untuk pencatatan bukti waktu anti-ubah.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2 CONTENT: SKALA KOMERSIAL NASIONAL & INTERNASIONAL -->
+      <div id="panelCommercial" class="hidden space-y-6 mb-12">
+        <div class="bg-slate-900 text-white rounded-2xl p-5 sm:p-6 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="font-heading font-bold text-base sm:text-lg text-white">Infrastruktur Enterprise B2B &amp; Keamanan Tingkat Perbankan</h3>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1">Dirancang untuk menangani ribuan perusahaan menengah, inkubator bisnis, dan integrasi penilaian kredit inovasi perbankan.</p>
+          </div>
+          <span class="font-mono text-xs font-bold px-3.5 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 shrink-0">
+            ISO 27001 &amp; FIPS 140-3 Ready
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- Com 1 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6">
+            <span class="font-mono text-[11px] font-bold px-2.5 py-1 rounded-md bg-indigo-100 text-indigo-800">EDGE SECURITY BOX</span>
+            <h4 class="font-heading font-bold text-base text-slate-900 mt-3 mb-2">Edge Gateway On-Premise (Intel N100 / RPi 5 + TPM 2.0)</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Perangkat kotak kecil di kantor klien perusahaan menengah yang mewajibkan enkripsi lokal dan pembersihan data keuangan sensitif sebelum metrik teragregasi dikirim ke <em>cloud</em>.
+            </p>
+          </div>
+
+          <!-- Com 2 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6">
+            <span class="font-mono text-[11px] font-bold px-2.5 py-1 rounded-md bg-sky-100 text-sky-800">AI COMPUTE</span>
+            <h4 class="font-heading font-bold text-base text-slate-900 mt-3 mb-2">Cloud GPU Inference Cluster</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Klaster komputasi terkelola (autoscaling) untuk memproses ribuan analisis dokumen SOP, pemindaian kemiripan paten semantik, dan prediksi kurva inovasi secara bersamaan.
+            </p>
+          </div>
+
+          <!-- Com 3 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6">
+            <span class="font-mono text-[11px] font-bold px-2.5 py-1 rounded-md bg-emerald-100 text-emerald-800">KEY MANAGEMENT</span>
+            <h4 class="font-heading font-bold text-base text-slate-900 mt-3 mb-2">HSM (Hardware Security Module) Cloud KMS</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Modul perangkat keras kriptografi khusus berstandar <strong>FIPS 140-3</strong> untuk menyimpan kunci penandatanganan sertifikat digital <em>IP Vault</em> agar mustahil dipalsukan.
+            </p>
+          </div>
+
+          <!-- Com 4 -->
+          <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6">
+            <span class="font-mono text-[11px] font-bold px-2.5 py-1 rounded-md bg-amber-100 text-amber-800">GLOBAL IP API</span>
+            <h4 class="font-heading font-bold text-base text-slate-900 mt-3 mb-2">Integrasi API DJKI &amp; WIPO Patent Database</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Konektor langsung ke pangkalan data kekayaan intelektual nasional (DJKI Kemenkumham) dan internasional (WIPO/ASEAN Patentscope) untuk pemindaian pelanggaran dan pengajuan paten lintas negara.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABEL PERBANDINGAN SPESIFIKASI, FUNGSI TEKNIS & ESTIMASI BIAYA -->
+      <div class="bg-slate-50 border border-slate-200 rounded-3xl p-5 sm:p-7">
+        <h3 class="font-heading font-bold text-lg text-slate-900 mb-4">Tabel Perbandingan Infrastruktur: Skala MVP Kampus vs Skala Komersial</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full min-w-[680px] text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="border-b-2 border-slate-200 text-slate-700 font-heading">
+                <th class="py-3 px-4">Komponen Sistem</th>
+                <th class="py-3 px-4">Skala MVP Kampus (KLIKSTART 4.0)</th>
+                <th class="py-3 px-4">Skala Komersial (Nasional &amp; ASEAN)</th>
+                <th class="py-3 px-4">Fungsi Teknis Utama</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-600">
+              <tr>
+                <td class="py-3.5 px-4 font-bold text-slate-900">Hardware Keamanan &amp; Edge</td>
+                <td class="py-3.5 px-4">1&times; FIDO2 / YubiKey USB + Laptop Dev (16GB RAM)</td>
+                <td class="py-3.5 px-4">Edge Box Intel N100 / RPi 5 + Modul TPM 2.0 &amp; Cloud HSM</td>
+                <td class="py-3.5 px-4">Otentikasi 2FA tanpa sandi &amp; enkripsi lokal sebelum data naik ke cloud.</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-bold text-slate-900">Mesin AI &amp; Analitik</td>
+                <td class="py-3.5 px-4">Python FastAPI + Gemini/LLM API + ChromaDB Lokal</td>
+                <td class="py-3.5 px-4">Cloud GPU Inference Cluster + Fine-Tuned Sectoral LLM</td>
+                <td class="py-3.5 px-4">Menghitung skor <em>Absorptive Capacity</em>, alokasi kas R&amp;D, &amp; generator SOP.</td>
+              </tr>
+              <tr>
+                <td class="py-3.5 px-4 font-bold text-slate-900">Brankas HKI &amp; Verifikasi</td>
+                <td class="py-3.5 px-4">Web Crypto SHA-256 + OpenTimestamps / Testnet</td>
+                <td class="py-3.5 px-4">Enterprise Timestamp Ledger + API DJKI &amp; WIPO</td>
+                <td class="py-3.5 px-4">Mengunci bukti kepemilikan aset digital &amp; deteksi kemiripan merek/paten.</td>
+              </tr>
+              <tr class="bg-indigo-50/60">
+                <td class="py-3.5 px-4 font-bold text-indigo-950">Estimasi Biaya Awal</td>
+                <td class="py-3.5 px-4 font-mono font-extrabold text-emerald-700">&lt; Rp 600.000 (Sekali Beli)</td>
+                <td class="py-3.5 px-4 font-mono font-bold text-indigo-700">OpEx Cloud Pay-as-You-Grow</td>
+                <td class="py-3.5 px-4">Skalabilitas biaya selaras dengan pertumbuhan jumlah klien B2B SaaS.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       7. PETA JALAN EKSPANSI, MODEL BISNIS & PEMBAGIAN PERAN TIM 4 ANGGOTA
+  ====================================================================== -->
+  <section id="bisnis" class="py-14 sm:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      
+      <!-- 7A. PETA JALAN EKSPANSI 3 FASE -->
+      <div>
+        <div class="max-w-3xl mb-10">
+          <span class="font-mono text-xs font-bold uppercase tracking-wider text-indigo-600">Go-To-Market &amp; Scaling Roadmap</span>
+          <h2 class="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 mt-1">
+            Peta Jalan Ekspansi: Kampus &rarr; Nasional &rarr; Internasional
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 mt-2">
+            Strategi implementasi bertahap dari ekosistem kewirausahaan Telkom University menuju pasar UMKM dan eksportir jasa digital Asia Tenggara.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Fase 1: Kampus -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-indigo-600"></div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 font-mono text-xs font-bold">FASE 1 &bull; BULAN 1&ndash;6</span>
+              <span class="font-mono text-xs font-bold text-slate-400">SKALA KAMPUS</span>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-slate-900 mb-2">Tenant BTP Tel-U &amp; UMKM Sekitar Kampus</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+              Uji coba langsung MVP bersama <em>tenant</em> inkubator bisnis <strong>Bandung Techno Park (BTP)</strong> dan UMKM digital/kreatif di kawasan <strong>Dayeuhkolot &ndash; Bojongsoang</strong> untuk mencegah tim rintisan berhenti di tahap prototipe tempelan AI dan mengamankan aset sebelum <em>pitching</em>.
+            </p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-medium text-slate-700">
+              <strong>Target KPI:</strong> 25+ tim startup kampus &amp; 30 UMKM aktif; 100% aset tercatat di IP Vault.
+            </div>
+          </div>
+
+          <!-- Fase 2: Nasional -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-emerald-500"></div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 font-mono text-xs font-bold">FASE 2 &bull; TAHUN 1&ndash;2</span>
+              <span class="font-mono text-xs font-bold text-slate-400">SKALA NASIONAL</span>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-slate-900 mb-2">UMKM Kota Lapis 2 &amp; 3 + Kemitraan Bank/Inkubator</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+              Menjawab temuan jurnal bahwa pelaku usaha di kota non-tier-1 paling rentan terjebak krisis kualitas inovasi. J-Curve Pilot bermitra dengan inkubator bisnis daerah serta perbankan penyalur kredit inovasi melalui skor <em>Innovation Readiness</em>.
+            </p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-medium text-slate-700">
+              <strong>Target KPI:</strong> 500+ UKM &amp; startup nasional berlangganan; pangkas biaya gagal adopsi IT 35%.
+            </div>
+          </div>
+
+          <!-- Fase 3: Internasional -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-7 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-sky-500"></div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-700 font-mono text-xs font-bold">FASE 3 &bull; TAHUN 3+</span>
+              <span class="font-mono text-xs font-bold text-slate-400">INTERNASIONAL</span>
+            </div>
+            <h3 class="font-heading font-bold text-xl text-slate-900 mb-2">Eksportir Jasa Digital &amp; Hub UKM ASEAN</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+              Ekspansi lisensi B2B SaaS ke negara berkembang kawasan ASEAN (<strong>Vietnam, Thailand, Filipina</strong>) untuk membantu UKM menyerap layanan digital lintas batas tanpa ketergantungan teknologi asing sekaligus memfasilitasi perluasan paten lintas negara (<em>patent family</em>).
+            </p>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs font-medium text-slate-700">
+              <strong>Target KPI:</strong> Ekspansi ke 3 negara ASEAN &amp; integrasi kepatuhan HKI lintas yurisdiksi.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7B. MODEL BISNIS 3 TIER -->
+      <div class="bg-[#0B1120] text-white rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl">
+        <div class="max-w-3xl mb-8">
+          <span class="font-mono text-xs font-bold uppercase tracking-wider text-emerald-400">Monetization &amp; Revenue Streams</span>
+          <h2 class="font-heading text-2xl sm:text-3xl font-extrabold text-white mt-1">
+            Model Bisnis Berjenjang (Freemium &rarr; B2B SaaS &rarr; Institusional)
+          </h2>
+          <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+            Dirancang untuk mempercepat akuisisi pengguna awal di lingkungan kampus sekaligus menghasilkan pendapatan berulang (<em>recurring revenue</em>) yang terukur.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Tier 1 -->
+          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 font-mono text-xs font-bold">TIER 1 &bull; ACQUISITION</span>
+                <span class="font-mono text-sm font-extrabold text-emerald-400">Rp 0 / bln</span>
+              </div>
+              <h3 class="font-heading font-bold text-lg text-white mb-2">Freemium (Mahasiswa &amp; Mikro)</h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Akses gratis diagnosis awal Kurva-J dan penguncian hingga 3 aset HKI per bulan di <em>Cryptographic IP Vault</em> untuk tim mahasiswa dan UMKM mikro sebagai pintu masuk ekosistem.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-400">
+              Fokus: Pertumbuhan basis pengguna &amp; validasi
+            </div>
+          </div>
+
+          <!-- Tier 2 -->
+          <div class="bg-gradient-to-b from-indigo-950/70 to-slate-900 border border-indigo-500/50 rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-md bg-indigo-500/20 text-indigo-300 font-mono text-xs font-bold">TIER 2 &bull; CORE REVENUE</span>
+                <span class="font-mono text-sm font-extrabold text-indigo-300">Rp 299rb &ndash; 799rb / bln</span>
+              </div>
+              <h3 class="font-heading font-bold text-lg text-white mb-2">B2B SaaS Berlangganan (UKM Menengah)</h3>
+              <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                Akses penuh <em>AI R&amp;D Cashflow Reallocator</em>, generator SOP otomasi sektoral tanpa batas, penyimpanan <em>IP Vault</em> tak terbatas, serta pemindai kemiripan merek/paten otomatis.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-indigo-500/20 text-[11px] font-mono text-indigo-300">
+              Fokus: Recurring Revenue (MRR) utama
+            </div>
+          </div>
+
+          <!-- Tier 3 -->
+          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-2.5 py-1 rounded-md bg-amber-500/20 text-amber-300 font-mono text-xs font-bold">TIER 3 &bull; ENTERPRISE</span>
+                <span class="font-mono text-sm font-extrabold text-amber-300">Lisensi Tahunan</span>
+              </div>
+              <h3 class="font-heading font-bold text-lg text-white mb-2">Lisensi Institusional (Inkubator &amp; Bank)</h3>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Dasbor portofolio terpadu untuk inkubator bisnis (memantau kesehatan inovasi seluruh <em>tenant</em>) dan API <em>Innovation Credit Scoring</em> bagi perbankan/modal ventura.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-amber-300">
+              Fokus: Kontrak B2B bernilai tinggi
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7C. TABEL PEMBAGIAN PERAN TIM 4 ANGGOTA -->
+      <div>
+        <div class="max-w-3xl mb-8">
+          <span class="font-mono text-xs font-bold uppercase tracking-wider text-indigo-600">Team Execution Blueprint</span>
+          <h2 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+            Pembagian Tugas Ideal Tim 4 Mahasiswa
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 mt-2">
+            Struktur pembagian tanggung jawab yang seimbang antara strategi bisnis, rekayasa AI &amp; keamanan siber, desain produk, serta validasi lapangan dan HKI.
+          </p>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-3xl p-5 sm:p-7 shadow-sm overflow-x-auto">
+          <table class="w-full min-w-[680px] text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="border-b-2 border-slate-200 text-slate-800 font-heading">
+                <th class="py-3.5 px-4">Peran &amp; Posisi</th>
+                <th class="py-3.5 px-4">Fokus Tanggung Jawab Utama</th>
+                <th class="py-3.5 px-4">Deliverable Kunci KLIKSTART 4.0</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 text-slate-600">
+              <tr>
+                <td class="py-4 px-4 align-top">
+                  <span class="inline-block px-2.5 py-0.5 rounded-md bg-indigo-100 text-indigo-800 font-mono text-[11px] font-bold mb-1">ANGGOTA 01</span>
+                  <div class="font-heading font-bold text-slate-900">CEO / Business Strategist</div>
+                </td>
+                <td class="py-4 px-4 align-top leading-relaxed">
+                  Merancang model bisnis berjenjang (<em>Freemium &rarr; B2B SaaS &rarr; Lisensi Institusional</em>), menghitung proyeksi keuangan dan penghematan biaya adopsi teknologi klien, serta memimpin presentasi <em>pitching</em>.
+                </td>
+                <td class="py-4 px-4 align-top font-medium text-slate-800">
+                  Business Model Canvas, Financial Projection, &amp; Final Pitch Deck.
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-4 align-top">
+                  <span class="inline-block px-2.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800 font-mono text-[11px] font-bold mb-1">ANGGOTA 02</span>
+                  <div class="font-heading font-bold text-slate-900">CTO / AI &amp; Backend Engineer</div>
+                </td>
+                <td class="py-4 px-4 align-top leading-relaxed">
+                  Membangun mesin diagnostik Kurva-J (<em>Python FastAPI</em>), integrasi LLM Co-Pilot untuk rekomendasi SOP/anggaran R&amp;D, serta implementasi modul kriptografi <em>SHA-256 timestamping</em> &amp; otentikasi FIDO2.
+                </td>
+                <td class="py-4 px-4 align-top font-medium text-slate-800">
+                  Backend API, J-Curve Diagnostic Engine, &amp; Cryptographic IP Vault.
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-4 align-top">
+                  <span class="inline-block px-2.5 py-0.5 rounded-md bg-sky-100 text-sky-800 font-mono text-[11px] font-bold mb-1">ANGGOTA 03</span>
+                  <div class="font-heading font-bold text-slate-900">CPO / UI-UX &amp; Product Designer</div>
+                </td>
+                <td class="py-4 px-4 align-top leading-relaxed">
+                  Merancang pengalaman pengguna (UX) yang intuitif agar pemilik UMKM non-teknis mudah memahami grafik Kurva-J, alokasi anggaran R&amp;D, dan alur penguncian sertifikat HKI dalam 3 klik.
+                </td>
+                <td class="py-4 px-4 align-top font-medium text-slate-800">
+                  Interactive Web Dashboard, Visualisasi Kurva-J, &amp; Pengujian Usability.
+                </td>
+              </tr>
+              <tr>
+                <td class="py-4 px-4 align-top">
+                  <span class="inline-block px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-800 font-mono text-[11px] font-bold mb-1">ANGGOTA 04</span>
+                  <div class="font-heading font-bold text-slate-900">CMO / Validation &amp; Legal-IP Lead</div>
+                </td>
+                <td class="py-4 px-4 align-top leading-relaxed">
+                  Melakukan wawancara validasi masalah kepada <em>tenant</em> BTP Telkom University dan UMKM Dayeuhkolot&ndash;Bojongsoang, menyusun templat SOP sektoral, serta menyelaraskan format sertifikat IP Vault dengan regulasi DJKI.
+                </td>
+                <td class="py-4 px-4 align-top font-medium text-slate-800">
+                  Bukti Validasi Pelanggan (LoI/Testimoni), Katalog SOP UMKM, &amp; Kepatuhan HKI.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       FOOTER
+  ====================================================================== -->
+  <footer class="bg-[#0B1120] text-slate-400 py-10 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm">
+      <div class="flex items-center gap-2.5">
+        <div class="w-7 h-7 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 4v5c0 4.97-3.05 9.18-7 10.5C8.05 21.18 5 16.97 5 12V7l7-4z" />
+          </svg>
+        </div>
+        <span class="font-heading font-bold text-white">J-Curve Pilot (InnoPulse AI) — AI &amp; Cryptographic IP Co-Pilot</span>
+      </div>
+      <p class="text-slate-500 text-center sm:text-right">
+        Blueprint Startup &bull; KLIKSTART 4.0 Bandung Techno Park (BTP) Telkom University
+      </p>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       JAVASCRIPT: MOBILE DRAWER, J-CURVE SVG SIMULATOR, SHA-256 IP VAULT & TABS
+  ====================================================================== -->
+  <script>
+    // ---------------------------------------------------------------------
+    // 1. NAVIGASI MOBILE DRAWER
+    // ---------------------------------------------------------------------
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const iconMenuOpen = document.getElementById('iconMenuOpen');
+    const iconMenuClose = document.getElementById('iconMenuClose');
+
+    function toggleMobileNav(forceClose = false) {
+      const isHidden = mobileDrawer.classList.contains('hidden');
+      if (forceClose || !isHidden) {
+        mobileDrawer.classList.add('hidden');
+        iconMenuOpen.classList.remove('hidden');
+        iconMenuClose.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      } else {
+        mobileDrawer.classList.remove('hidden');
+        iconMenuOpen.classList.add('hidden');
+        iconMenuClose.classList.remove('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    mobileMenuBtn.addEventListener('click', () => toggleMobileNav(false));
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => toggleMobileNav(true));
+    });
+
+    // ---------------------------------------------------------------------
+    // 2. SIMULATOR INTERAKTIF KURVA-J INOVASI DIGITAL
+    // ---------------------------------------------------------------------
+    let jcurveState = {
+      dstoi: 8.5,         // 0.0 - 18.0
+      friction: 55,       // 10 - 100 (%)
+      abscap: 60,         // 10 - 100 (%)
+      ipProtected: true   // boolean
+    };
+
+    const dstoiSlider = document.getElementById('dstoiSlider');
+    const frictionSlider = document.getElementById('frictionSlider');
+    const abscapSlider = document.getElementById('abscapSlider');
+
+    function setIpProtection(isActive) {
+      jcurveState.ipProtected = isActive;
+      const btnIpActive = document.getElementById('btnIpActive');
+      const btnIpInactive = document.getElementById('btnIpInactive');
+
+      if (isActive) {
+        btnIpActive.className = 'py-2 px-3 rounded-xl text-xs font-extrabold bg-emerald-600 text-white shadow-sm transition text-center';
+        btnIpInactive.className = 'py-2 px-3 rounded-xl text-xs font-bold bg-transparent text-slate-600 hover:text-slate-900 transition text-center';
+      } else {
+        btnIpInactive.className = 'py-2 px-3 rounded-xl text-xs font-extrabold bg-rose-600 text-white shadow-sm transition text-center';
+        btnIpActive.className = 'py-2 px-3 rounded-xl text-xs font-bold bg-transparent text-slate-600 hover:text-slate-900 transition text-center';
+      }
+      updateJCurveSimulator();
+    }
+
+    function applyJCurvePreset(preset) {
+      if (preset === 'illusion') {
+        jcurveState.dstoi = 8.5;
+        jcurveState.friction = 50;
+        jcurveState.abscap = 40;
+        jcurveState.ipProtected = false;
+      } else if (preset === 'squeeze') {
+        jcurveState.dstoi = 10.5;
+        jcurveState.friction = 90;
+        jcurveState.abscap = 25;
+        jcurveState.ipProtected = false;
+      } else if (preset === 'rebound') {
+        jcurveState.dstoi = 15.5;
+        jcurveState.friction = 25;
+        jcurveState.abscap = 85;
+        jcurveState.ipProtected = true;
+      }
+
+      dstoiSlider.value = jcurveState.dstoi;
+      frictionSlider.value = jcurveState.friction;
+      abscapSlider.value = jcurveState.abscap;
+      setIpProtection(jcurveState.ipProtected);
+    }
+
+    // Fungsi matematis yang merepresentasikan Kurva Terbalik-U (Kuantitas) & Kurva-U (Kualitas)
+    // beserta efek moderasi dari Zhang et al. (2026)
+    function evaluateInnovationCurves(x, frictionPct, abscapPct, ipActive) {
+      const f = frictionPct / 100; // 0.1 - 1.0
+      const a = abscapPct / 100;   // 0.1 - 1.0
+
+      // 1. Kuantitas Inovasi (Inverted-U, puncak di x = 8.3)
+      // Absorptive capacity tinggi memperkuat kelincahan kuantitas; friksi kas meredamnya
+      const peakHeight = 76 + (a - 0.5) * 24 - (f - 0.5) * 22;
+      const spreadQ = 8.6;
+      const normDistQ = (x - 8.3) / spreadQ;
+      let quantityScore = peakHeight - 46 * (normDistQ * normDistQ);
+      quantityScore = Math.max(8, Math.min(98, quantityScore));
+
+      // 2. Kualitas Inovasi (U-Shape, lembah di x = 10.8)
+      // Friksi kas memperdalam kejatuhan kualitas & menahan rebound (double-squeeze)
+      // Absorptive capacity menahan kedalaman lembah (qualitative resilience)
+      // IP Vault aktif memperkuat rebound kualitas di fase matang (x > 9)
+      const troughBase = 36 + (a - 0.5) * 26 - (f - 0.5) * 28;
+      const rightSlopeFactor = (x >= 10.8)
+        ? (0.95 + (ipActive ? 0.35 : -0.25) - (f - 0.5) * 0.45)
+        : 0.72;
+      const normDistK = (x - 10.8) / 7.4;
+      let qualityScore = troughBase + 46 * rightSlopeFactor * (normDistK * normDistK);
+      qualityScore = Math.max(8, Math.min(98, qualityScore));
+
+      return { quantityScore, qualityScore };
+    }
+
+    function updateJCurveSimulator() {
+      jcurveState.dstoi = parseFloat(dstoiSlider.value);
+      jcurveState.friction = parseInt(frictionSlider.value, 10);
+      jcurveState.abscap = parseInt(abscapSlider.value, 10);
+
+      // Update label badge input
+      document.getElementById('dstoiBadge').textContent = `${jcurveState.dstoi.toFixed(1)} / 18.0`;
+
+      let frictionLabel = 'Sedang';
+      if (jcurveState.friction <= 35) frictionLabel = 'Longgar';
+      else if (jcurveState.friction >= 70) frictionLabel = 'Tinggi';
+      document.getElementById('frictionBadge').textContent = `${jcurveState.friction}% (${frictionLabel})`;
+
+      let abscapLabel = 'Adaptif';
+      if (jcurveState.abscap <= 35) abscapLabel = 'Rendah';
+      else if (jcurveState.abscap >= 75) abscapLabel = 'Matang';
+      document.getElementById('abscapBadge').textContent = `${jcurveState.abscap}% (${abscapLabel})`;
+
+      // Gambar ulang kedua kurva di SVG (x: 55 -> 645 untuk DSTOI 0 -> 18; y: 230 -> 30 untuk skor 0 -> 100)
+      const xStart = 55;
+      const xWidth = 590;
+      const yBottom = 230;
+      const yHeight = 200;
+
+      let pathQ = '';
+      let pathK = '';
+      const steps = 36;
+
+      for (let i = 0; i <= steps; i++) {
+        const dVal = (18 * i) / steps;
+        const { quantityScore, qualityScore } = evaluateInnovationCurves(
+          dVal,
+          jcurveState.friction,
+          jcurveState.abscap,
+          jcurveState.ipProtected
+        );
+        const px = xStart + (dVal / 18) * xWidth;
+        const pyQ = yBottom - (quantityScore / 100) * yHeight;
+        const pyK = yBottom - (qualityScore / 100) * yHeight;
+
+        pathQ += (i === 0 ? `M ${px.toFixed(1)} ${pyQ.toFixed(1)}` : ` L ${px.toFixed(1)} ${pyQ.toFixed(1)}`);
+        pathK += (i === 0 ? `M ${px.toFixed(1)} ${pyK.toFixed(1)}` : ` L ${px.toFixed(1)} ${pyK.toFixed(1)}`);
+      }
+
+      document.getElementById('curveQuantityPath').setAttribute('d', pathQ);
+      document.getElementById('curveQualityPath').setAttribute('d', pathK);
+
+      // Posisi titik aktual user saat ini
+      const currentScores = evaluateInnovationCurves(
+        jcurveState.dstoi,
+        jcurveState.friction,
+        jcurveState.abscap,
+        jcurveState.ipProtected
+      );
+      const userPx = xStart + (jcurveState.dstoi / 18) * xWidth;
+      const userPyQ = yBottom - (currentScores.quantityScore / 100) * yHeight;
+      const userPyK = yBottom - (currentScores.qualityScore / 100) * yHeight;
+
+      const userPosLine = document.getElementById('userPosLine');
+      userPosLine.setAttribute('x1', userPx.toFixed(1));
+      userPosLine.setAttribute('x2', userPx.toFixed(1));
+
+      const markerQ = document.getElementById('markerQuantity');
+      markerQ.setAttribute('cx', userPx.toFixed(1));
+      markerQ.setAttribute('cy', userPyQ.toFixed(1));
+
+      const markerK = document.getElementById('markerQuality');
+      markerK.setAttribute('cx', userPx.toFixed(1));
+      markerK.setAttribute('cy', userPyK.toFixed(1));
+
+      // Penentuan Status Zona Strategis & Rekomendasi AI
+      const zoneBadge = document.getElementById('zoneStatusBadge');
+      const diagBox = document.getElementById('jcurveDiagnosisBox');
+
+      let zoneName = 'ZONA COMPETENCY ILLUSION';
+      let badgeClass = 'font-mono text-xs font-extrabold px-3 py-1.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40';
+      let diagHtml = '';
+
+      if (jcurveState.friction >= 70 && currentScores.qualityScore < 42) {
+        zoneName = 'BAHAYA DOUBLE-SQUEEZE';
+        badgeClass = 'font-mono text-xs font-extrabold px-3 py-1.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40';
+        diagHtml = `<strong>Peringatan Double-Squeeze:</strong> Friksi kas tinggi (${jcurveState.friction}%) menekan riset inti hingga skor kualitas turun ke <strong>${Math.round(currentScores.qualityScore)}/100</strong>. Hentikan penambahan langganan SaaS baru dan kunci minimal <strong>65%</strong> anggaran R&amp;D sebagai <em>Strategic Buffer</em>.`;
+      } else if (jcurveState.dstoi >= 12.0 && currentScores.qualityScore >= 60 && jcurveState.ipProtected) {
+        zoneName = 'ZONA BREAKTHROUGH REBOUND';
+        badgeClass = 'font-mono text-xs font-extrabold px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+        diagHtml = `<strong>Breakthrough Rebound Tercapai:</strong> Kapasitas serap matang dan proteksi <em>IP Vault</em> mendorong kualitas terobosan inti naik ke <strong>${Math.round(currentScores.qualityScore)}/100</strong>. Usaha siap melakukan ekspansi portofolio paten dan pendanaan skala lanjut.`;
+      } else if (jcurveState.dstoi >= 9.5 && jcurveState.dstoi <= 12.2) {
+        zoneName = 'TITIK BALIK (TURNING POINT)';
+        badgeClass = 'font-mono text-xs font-extrabold px-3 py-1.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40';
+        diagHtml = `<strong>Fase Transisi Turning Point (DSTOI ${jcurveState.dstoi.toFixed(1)}):</strong> Anda berada tepat di titik balik kurva kualitas. Gunakan <em>Workflow &amp; GPT Co-Pilot</em> untuk merestrukturisasi SOP agar investasi digital mulai berbuah terobosan inti.`;
+      } else if (jcurveState.dstoi < 5.0) {
+        zoneName = 'FASE ADOPSI AWAL (EARLY STAGE)';
+        badgeClass = 'font-mono text-xs font-extrabold px-3 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/40';
+        diagHtml = `<strong>Fase Adopsi Awal:</strong> Manfaatkan perangkat digital berbiaya rendah untuk mempercepat otomatisasi operasional (<em>quick-win convergence</em>) sambil mencatat ide inti di <em>Cryptographic IP Vault</em> sejak dini.`;
+      } else {
+        zoneName = 'ZONA COMPETENCY ILLUSION';
+        badgeClass = 'font-mono text-xs font-extrabold px-3 py-1.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40';
+        diagHtml = `<strong>Waspada Competency Illusion:</strong> Kuantitas adopsi digital tinggi (<strong>${Math.round(currentScores.quantityScore)}/100</strong>), namun kualitas diferensiasi produk inti tertahan di <strong>${Math.round(currentScores.qualityScore)}/100</strong>. Alihkan fokus anggaran dari alat generik menuju pengembangan fitur orisinal &amp; kunci HKI.`;
+      }
+
+      zoneBadge.textContent = zoneName;
+      zoneBadge.className = badgeClass;
+      diagBox.innerHTML = diagHtml;
+
+      // Rekomendasi Alokasi Anggaran R&D
+      const coreBufferPct = Math.min(75, Math.max(35, Math.round(40 + (jcurveState.dstoi / 18) * 20 + (jcurveState.friction / 100) * 15)));
+      const quickWinPct = 100 - coreBufferPct;
+
+      document.getElementById('budgetSplitText').textContent = `${quickWinPct}% Quick-Win Convergence • ${coreBufferPct}% Strategic Buffer Core`;
+      document.getElementById('barQuickWin').style.width = `${quickWinPct}%`;
+      document.getElementById('barCoreBuffer').style.width = `${coreBufferPct}%`;
+
+      // Pemangkasan Implementation Lag (dari baseline 14 bulan)
+      const baselineLagMonths = 14;
+      const lagWeeks = Math.max(3, Math.round(14 - (jcurveState.abscap / 100) * 9 - (jcurveState.ipProtected ? 1 : 0)));
+
+      // Skor Kelayakan Pendanaan & Kesiapan HKI
+      const readinessScore = Math.min(99, Math.max(25, Math.round(
+        currentScores.qualityScore * 0.45 +
+        currentScores.quantityScore * 0.20 +
+        (100 - jcurveState.friction) * 0.15 +
+        (jcurveState.ipProtected ? 20 : 0)
+      )));
+
+      document.getElementById('outQuantScore').textContent = `${Math.round(currentScores.quantityScore)} / 100`;
+      document.getElementById('outQualScore').textContent = `${Math.round(currentScores.qualityScore)} / 100`;
+      document.getElementById('outLagTime').textContent = `${lagWeeks} Minggu`;
+      document.getElementById('outLagSub').textContent = `Turun dari ${baselineLagMonths} Bulan`;
+      document.getElementById('outReadinessScore').textContent = `${readinessScore} / 100`;
+      document.getElementById('outReadinessSub').textContent = jcurveState.ipProtected ? 'HKI Terkunci • Siap Kredit' : 'Aktifkan IP Vault (+20 Poin)';
+    }
+
+    dstoiSlider.addEventListener('input', updateJCurveSimulator);
+    frictionSlider.addEventListener('input', updateJCurveSimulator);
+    abscapSlider.addEventListener('input', updateJCurveSimulator);
+
+    // ---------------------------------------------------------------------
+    // 3. DEMO INTERAKTIF CRYPTOGRAPHIC IP VAULT (REAL SHA-256)
+    // ---------------------------------------------------------------------
+    // Implementasi fallback SHA-256 murni jika browser membatasi crypto.subtle pada konteks non-HTTPS
+    function sha256Fallback(ascii) {
+      function rightRotate(value, amount) {
+        return (value >>> amount) | (value << (32 - amount));
+      }
+      const mathPow = Math.pow;
+      const maxWord = mathPow(2, 32);
+      let result = '';
+      const words = [];
+      const asciiBitLength = ascii.length * 8;
+
+      const hash = [];
+      const k = [];
+      let primeCounter = 0;
+      const isComposite = {};
+
+      for (let candidate = 2; primeCounter < 64; candidate++) {
+        if (!isComposite[candidate]) {
+          for (let i = 0; i < 313; i += candidate) {
+            isComposite[i] = candidate;
+          }
+          hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+          k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+        }
+      }
+
+      ascii += '\x80';
+      while ((ascii.length % 64) - 56) ascii += '\x00';
+      for (let i = 0; i < ascii.length; i++) {
+        const j = ascii.charCodeAt(i);
+        words[i >> 2] |= j << (((3 - i) % 4) * 8);
+      }
+      words[words.length] = (asciiBitLength / maxWord) | 0;
+      words[words.length] = asciiBitLength;
+
+      for (let j = 0; j < words.length; ) {
+        const w = words.slice(j, (j += 16));
+        const oldHash = hash.slice(0);
+
+        for (let i = 0; i < 64; i++) {
+          const w15 = w[i - 15];
+          const w2 = w[i - 2];
+          const a = hash[0];
+          const e = hash[4];
+          const temp1 =
+            hash[7] +
+            (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) +
+            ((e & hash[5]) ^ (~e & hash[6])) +
+            k[i] +
+            (w[i] =
+              i < 16
+                ? w[i]
+                : (w[i - 16] +
+                    (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) +
+                    w[i - 7] +
+                    (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) |
+                  0);
+          const temp2 =
+            (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) +
+            ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+
+          hash.unshift((temp1 + temp2) | 0);
+          hash[4] = (hash[4] + temp1) | 0;
+          hash.pop();
+        }
+
+        for (let i = 0; i < 8; i++) {
+          hash[i] = (hash[i] + oldHash[i]) | 0;
+        }
+      }
+
+      for (let i = 0; i < 8; i++) {
+        for (let j = 3; j + 1; j--) {
+          const b = (hash[i] >> (j * 8)) & 255;
+          result += (b < 16 ? 0 : '') + b.toString(16);
+        }
+      }
+      return result;
+    }
+
+    async function computeRealSHA256(text) {
+      try {
+        if (window.crypto && window.crypto.subtle) {
+          const encoder = new TextEncoder();
+          const data = encoder.encode(text);
+          const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
+          const hashArray = Array.from(new Uint8Array(hashBuffer));
+          return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+      } catch (err) {
+        // Lanjut ke fallback standar SHA-256 di bawah
+      }
+      const utf8Bytes = unescape(encodeURIComponent(text));
+      return sha256Fallback(utf8Bytes);
+    }
+
+    async function generateCryptographicIpProof() {
+      const ownerInput = document.getElementById('ipOwnerInput').value.trim() || 'Anonim / Startup Rintisan';
+      const category = document.getElementById('ipCategorySelect').value;
+      const secretText = document.getElementById('ipSecretInput').value.trim() || 'Dokumen Inovasi Tanpa Judul';
+      const isoTimestamp = new Date().toISOString();
+
+      const payload = `${ownerInput}|${category}|${secretText}|${isoTimestamp}`;
+      const sha256Hex = await computeRealSHA256(payload);
+      const shortSerial = sha256Hex.substring(0, 6).toUpperCase();
+
+      document.getElementById('certSerialNumber').textContent = `CERT-ID: JCP-2026-${shortSerial}-VERIFIED`;
+      document.getElementById('certOwnerText').textContent = ownerInput;
+      document.getElementById('certMetaText').textContent = `${category} • ${isoTimestamp}`;
+      document.getElementById('certHashOutput').textContent = sha256Hex;
+      document.getElementById('copyBtnLabel').textContent = 'Salin Hash';
+    }
+
+    function copyHashToClipboard() {
+      const hashText = document.getElementById('certHashOutput').textContent.trim();
+      const copyBtnLabel = document.getElementById('copyBtnLabel');
+
+      const tempInput = document.createElement('textarea');
+      tempInput.value = hashText;
+      tempInput.style.position = 'fixed';
+      tempInput.style.opacity = '0';
+      document.body.appendChild(tempInput);
+      tempInput.select();
+
+      try {
+        document.execCommand('copy');
+        copyBtnLabel.textContent = 'Tersalin ✓';
+        setTimeout(() => {
+          copyBtnLabel.textContent = 'Salin Hash';
+        }, 2000);
+      } catch (e) {
+        copyBtnLabel.textContent = 'Gagal Salin';
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    // ---------------------------------------------------------------------
+    // 4. TAB PEMISAH KEBUTUHAN ALAT & HARDWARE (MVP vs KOMERSIAL)
+    // ---------------------------------------------------------------------
+    function switchInfraTab(tab) {
+      const btnMvp = document.getElementById('tabBtnMvp');
+      const btnCommercial = document.getElementById('tabBtnCommercial');
+      const panelMvp = document.getElementById('panelMvp');
+      const panelCommercial = document.getElementById('panelCommercial');
+
+      if (tab === 'mvp') {
+        btnMvp.className = 'flex-1 sm:flex-none px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold bg-indigo-600 text-white shadow-sm transition text-left sm:text-center';
+        btnCommercial.className = 'flex-1 sm:flex-none px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition text-left sm:text-center';
+        panelMvp.classList.remove('hidden');
+        panelCommercial.classList.add('hidden');
+      } else {
+        btnCommercial.className = 'flex-1 sm:flex-none px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold bg-[#0F172A] text-white shadow-sm transition text-left sm:text-center';
+        btnMvp.className = 'flex-1 sm:flex-none px-5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 transition text-left sm:text-center';
+        panelCommercial.classList.remove('hidden');
+        panelMvp.classList.add('hidden');
+      }
+    }
+
+    // Inisialisasi awal saat halaman selesai dimuat
+    window.addEventListener('DOMContentLoaded', () => {
+      updateJCurveSimulator();
+      generateCryptographicIpProof();
+    });
+  </script>
+</body>
+</html>
